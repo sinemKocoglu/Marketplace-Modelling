@@ -1,5 +1,3 @@
-package executable;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
@@ -29,9 +27,9 @@ public class Main {
 		Trader.numberOfUsers = C;
 		int D = Integer.parseInt(line2[2]);
 		
-		/*The next C lines represent the initial dollars and PQoins asset in each trader’s wallet.
+		/*The next C lines represent the initial dollars and PQoins asset in each traderâ€™s wallet.
 		<dollar_amount> <PQoin_amount>
-		…
+		â€¦
 		<dollar_amount> <PQoin_amount>*/
 		ArrayList<Trader> traders = new ArrayList<Trader>();
 		int invalidQuery = 0;
@@ -136,7 +134,7 @@ public class Main {
 			else if(eventType.equals("5")) {
 //			print wallet status:
 //			5 <trader_id>
-//			Prints “Trader <traderID>: <trader_s_dollars>$ <trader_s_PQoins>PQ”
+//			Prints â€œTrader <traderID>: <trader_s_dollars>$ <trader_s_PQoins>PQâ€
 //			Example: Trader 5: 34.0$ 23.0PQ
 				out.println("Trader " + Integer.parseInt(lineInD[1]) + ": " + traders.get(Integer.parseInt(lineInD[1])).getWallet().total("d") + "$ " + traders.get(Integer.parseInt(lineInD[1])).getWallet().total("c") + "PQ");
 				//market.checkTransactions(traders);
@@ -146,7 +144,7 @@ public class Main {
 			else if(eventType.equals("777")) {
 //			give rewards to all traders:
 //			When this query is read, the system creates and distributes random amounts of PQoins to all traders.
-//			for each trader add myRandom.nextDouble()*10 coins to the trader’s wallet.
+//			for each trader add myRandom.nextDouble()*10 coins to the traderâ€™s wallet.
 				for(int m=0;m<C;m++) { 
 					traders.get(m).getWallet().add("c", myRandom.nextDouble()*10); 
 				}
@@ -163,26 +161,26 @@ public class Main {
 			
 			else if(eventType.equals("500")) {
 //			print the current market size:
-//			Prints “Current market size: <total_$_in_buying_pq> <total_PQoin_in_selling_pq>” to the output file.
+//			Prints â€œCurrent market size: <total_$_in_buying_pq> <total_PQoin_in_selling_pq>â€ to the output file.
 				out.println("Current market size: " + String.format("%.5f %.5f", market.currentMarketSize("buy"), market.currentMarketSize("sell")));
 			}
 			
 			else if(eventType.equals("501")) {
 //			print number of successful transactions:
-//			Prints “Number of successful transactions: <num_of_successful_transaction>” to the output file.
+//			Prints â€œNumber of successful transactions: <num_of_successful_transaction>â€ to the output file.
 				out.println("Number of successful transactions: " + market.getTransactionsSize());
 			}
 			
 			else if(eventType.equals("502")) {
 //			print the number of invalid queries:
 //			Prints <number_of_invalid_queries> to the output file.
-//			Note: If a trader is unable to satisfy the query’s liabilities, then the number of invalid queries is incremented by one.
+//			Note: If a trader is unable to satisfy the queryâ€™s liabilities, then the number of invalid queries is incremented by one.
 				out.println("Number of invalid queries: " + invalidQuery);
 			}
 			
 			else if(eventType.equals("505")) {
 //			print the current prices:
-//			Prints; “Current prices: <cp_buying> <cp_selling> <cp_average> to the output file.
+//			Prints; â€œCurrent prices: <cp_buying> <cp_selling> <cp_average> to the output file.
 //			Note: if one of the PriorityQueues is empty then the price related to it, is not included in the average current price.
 				if(market.getBuyingOrders().isEmpty() && !market.getSellingOrders().isEmpty()) {
 					out.println("Current prices: 0.00000 " +String.format("%.5f %.5f", market.getSellingOrders().peek().getPrice(), market.CurrentPrice()));
@@ -198,8 +196,8 @@ public class Main {
 				}
 			}
 			else if(eventType.equals("555")) {
-//			print all traders’ wallet status
-//			Prints “<trader_s_dollars>$ <trader_s_PQoins>PQ” of all traders
+//			print all tradersâ€™ wallet status
+//			Prints â€œ<trader_s_dollars>$ <trader_s_PQoins>PQâ€ of all traders
 				for(int n=0;n<traders.size();n++) {
 					out.println("Trader " + n + String.format(": %.5f$ %.5fPQ",traders.get(n).getWallet().total("d"), traders.get(n).getWallet().total("c")));
 				}
